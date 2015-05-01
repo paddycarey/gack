@@ -93,6 +93,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// already in our s.tokens map. If the token isn't recognised then the
 	// request will be rejected before any processing takes place.
 	if !s.tokens[sc.Token] {
+		w.WriteHeader(http.StatusUnauthorized)
 		fmt.Fprint(w, "Invalid API token. Check configuration.")
 		return
 	}
